@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="myweight.db.models::simpleweight1" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="simpleweight1"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="myweight.db.data::entities.weight_log">
+    <resourceUri>myweight.db.data::entities.weight_log</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+<logicalModel id="myweight.db.data::entities.weight_log">
+  <attributes>
+    <attribute id="checkin_date" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Date"/>
+      <keyMapping columnObjectName="entities.weight_log" columnName="checkin_date"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes>
+    <calculatedAttribute id="DayNumber" order="2" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DayNoOfWeek"/>
+      <keyCalculation datatype="SMALLINT" expressionLanguage="COLUMN_ENGINE">
+        <formula>weekday(&quot;checkin_date&quot;)</formula>
+      </keyCalculation>
+      </calculatedAttribute>
+    <calculatedAttribute id="DayName" order="3" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Day Name"/>
+      <keyCalculation datatype="VARCHAR" expressionLanguage="COLUMN_ENGINE" length="13">
+        <formula>case(weekday(&quot;checkin_date&quot;), 0,'Mon',1,'Tue',2,'Wed',3,'Thurs',4,'Fri',5,'Sat','Sun')</formula>
+      </keyCalculation>
+      </calculatedAttribute>
+  </calculatedAttributes>
+  <baseMeasures>
+    <measure id="weight_lbs" order="4" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="weight_lbs"/>
+      <measureMapping columnObjectName="entities.weight_log" columnName="weight_lbs"/>
+    </measure>
+    <measure id="weight_kgs" order="5" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="weight_kgs"/>
+      <measureMapping columnObjectName="entities.weight_log" columnName="weight_kgs"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

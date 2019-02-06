@@ -1,0 +1,25 @@
+{
+  "format_version": 1,
+  "imports":
+  [
+	{
+		"target_table":"myweight.db.data::entities.weight_log",
+		"source_data": {
+			"data_type": "CSV",
+			"file_name": "myweight.db.data::data.csv",
+			"has_header": true,
+			"dialect": "HANA",
+			"type_config": {
+				"delimiter": "\t"
+			}
+  	},
+  "import_settings": {
+    "import_columns": ["checkin_date", "weight_lbs"],
+    "include_filter": []
+		},
+  "column_mappings": {
+    "checkin_date" : 1, "weight_lbs" : 2
+		}
+	}
+  ]
+}

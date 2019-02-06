@@ -1,0 +1,12 @@
+namespace myweight.db.data;
+
+/*@@layout{"layoutInfo":{"x":-175,"y":-61}}*/
+context entities {
+
+    /*@@layout{"layoutInfo":{"x":-424,"y":-135.5}}*/
+    entity weight_log {
+        checkin_date : LocalDate     not null;
+        weight_lbs   : Decimal(5, 2) not null;
+        weight_kgs   : Decimal(5, 2) generated always as weight_lbs / 2.205;
+    };
+};
